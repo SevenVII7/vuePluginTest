@@ -1,0 +1,19 @@
+{
+  "name": "vuePluginTest",
+  "version": "1.0.0",
+  "license": "ISC",
+  "author": "leon",
+  "private": true,
+  "dependencies": {
+    "vue": "^3.2.47",
+    "webpack": "^5.75.0",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.0.1"
+  },
+  "scripts": {
+    "build": "webpack --mode production --config webpack.config.js",
+    "start": "webpack-dev-server --config webpack.config.js"
+  }
+}

@@ -1,19 +1,21 @@
-// 用來確保webpack不會吐在奇怪的地方
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { VueLoaderPlugin } = require('vue-loader');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 
 module.exports = {
-  // 這個檔案import了所有css和js
+  mode: 'development',
   entry: './src/index.js',
   output: {
-    // 吐出來的檔案預設在dist
     path: path.resolve(__dirname, './dist/'),
-    // 預設吐出來後把[name]換成main
-    filename: 'main.js',
-    // filename: '[name].min.js'
+    filename: 'main.[hash].js',
+  },
+  devServer: {
+    static: path.join(__dirname, 'dist'),
   },
   module: {
-    //放一些正規表達式和模組名稱
     rules: [
       {
         test: /\.vue$/,
@@ -24,23 +26,29 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.css$/,
+        test: /\.(css|scss)$/,
         use: [
-          'vue-style-loader',
+          // 'vue-style-loader', // 用了 MiniCssExtractPlugin 好像就不需要 vue-style-loader 了
+          MiniCssExtractPlugin.loader,
           'css-loader'
-        ]
+        ],
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]'
+          name: '[name].[hash].[ext]'
         }
       }
     ]
   },
   plugins: [
     // 放一些類別(class)
+    new HtmlWebpackPlugin({
+      template: './public/index.html'
+    }),
+    new MiniCssExtractPlugin(),
+    new CleanWebpackPlugin(),
     new VueLoaderPlugin()
   ]
 }

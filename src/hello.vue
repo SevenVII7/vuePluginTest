@@ -2,32 +2,26 @@
   <div class="hello">
     <h2>
       {{ msg }}
+      <br>
+      <img :src="logo" alt="">
     </h2>
   </div>
 </template>
 
 <script>
+  import logo from './img/logo.png'
+  // import './scss/main.scss';
+
   module.exports = {
     data: function() {
       return {
-        msg: 'We can build Vue now'
+        msg: 'We can build Vue now',
+        logo: logo
       }
     },
     mounted(){ console.log(234234) },
   };
 </script>
 
-<style scoped>
-  .hello {
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    color: #555;
-  }
+<style scoped src="./scss/hello.scss">
 </style>
